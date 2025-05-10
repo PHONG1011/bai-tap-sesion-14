@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý danh sách sách</title>
+</head>
+<body>
+  <script>
+    // Mảng lưu danh sách sách
+    let books = [];
+
+    // 1. Thêm sách mới
+    function addBook() {
+      let id = prompt("Nhập ID sách:");
+      let name = prompt("Nhập tên sách:");
+      let author = prompt("Nhập tên tác giả:");
+      let year = parseInt(prompt("Nhập năm xuất bản:"));
+
+      // Kiểm tra tính hợp lệ
+      if (!id || !name || !author || isNaN(year)) {
+        console.log("Thông tin không hợp lệ. Vui lòng thử lại.");
+        return;
+      }
+
+      // Thêm sách vào danh sách
+      books.push({ id, name, author, year });
+      console.log(`Đã thêm sách: ID: ${id}, Tên: ${name}, Tác giả: ${author}, Năm xuất bản: ${year}`);
+    }
+
+    // 2. Hiển thị danh sách sách
+    function displayBooks() {
+      if (books.length === 0) {
+        console.log("Danh sách sách trống.");
+      } else {
+        console.log("Danh sách sách:");
+        books.forEach((book, index) => {
+          console.log(`${index + 1}. ID: ${book.id}, Tên: ${book.name}, Tác giả: ${book.author}, Năm xuất bản: ${book.year}`);
+        });
+      }
+    }
+
+    // 3. Tìm kiếm sách theo tên
+    function searchBookByName() {
+      let keyword = prompt("Nhập từ khóa tìm kiếm:");
+      if (!keyword) {
+        console.log("Vui lòng nhập từ khóa.");
+        return;
+      }
+
+      let results = books.filter((book) => book.name.toLowerCase().includes(keyword.toLowerCase()));
+
+      if (results.length > 0) {
+        console.log("Kết quả tìm kiếm:");
+        results.forEach((book, index) => {
+          console.log(`${index + 1}. ID: ${book.id}, Tên: ${book.name}, Tác giả: ${book.author}, Năm xuất bản: ${book.year}`);
+        });
+      } else {
+        console.log("Không tìm thấy sách nào với từ khóa đã nhập.");
+      }
+    }
+
+    // 4. Xóa sách theo ID
+    function deleteBookById() {
+      let id = prompt("Nhập ID của sách cần xóa:");
+      let index = books.findIndex((book) => book.id === id);
+
+      if (index !== -1) {
+        let removedBook = books.splice(index, 1);
+        console.log(`Đã xóa sách: ID: ${removedBook[0].id}, Tên: ${removedBook[0].name}`);
+      } else {
+        console.log(`Không tìm thấy sách với ID: ${id}`);
+      }
+    }
+
+    // ==============================
+    // Menu chức năng
+    while (true) {
+      let choice = parseInt(prompt(
+        "---QUẢN LÝ DANH SÁCH---\n" +
+        "1: Thêm sách mới\n" +
+        "2: Hiển thị danh sách sách\n" +
+        "3: Tìm kiếm sách theo tên\n" +
+        "4: Xóa sách theo ID\n" +
+        "5: Thoát chương trình\n" +
+        "Nhập lựa chọn của bạn\n" 
+      ));
+
+      switch (choice) {
+        case 1:
+          addBook();
+          break;
+        case 2:
+          displayBooks();
+          break;
+        case 3:
+          searchBookByName();
+          break;
+        case 4:
+          deleteBookById();
+          break;
+        case 5:
+          console.log("Thoát chương trình.");
+          alert("Thoát chương trình.");
+          exit();
+        default:
+          console.log("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+      }
+    }
+  </script>
+</body>
+</html>
