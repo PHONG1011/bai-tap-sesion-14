@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý danh sách sinh viên</title>
+</head>
+<body>
+  <script>
+    // Mảng lưu danh sách sinh viên
+    let students = [];
+
+    // 1. Thêm sinh viên mới
+    function addStudent() {
+      let name = prompt("Nhập tên sinh viên:");
+      let age = parseInt(prompt("Nhập tuổi sinh viên:"));
+      let id = prompt("Nhập mã số sinh viên (ID):");
+
+      // Kiểm tra tính hợp lệ
+      if (!name || isNaN(age) || !id) {
+        console.log("Thông tin không hợp lệ. Vui lòng thử lại.");
+        return;
+      }
+
+      // Thêm sinh viên vào danh sách
+      students.push({ name, age, id });
+      console.log(`Đã thêm sinh viên: Tên: ${name}, Tuổi: ${age}, ID: ${id}`);
+    }
+
+    // 2. Hiển thị danh sách sinh viên
+    function displayStudents() {
+      if (students.length === 0) {
+        console.log("Danh sách sinh viên trống.");
+      } else {
+        console.log("Danh sách sinh viên:");
+        students.forEach((student, index) => {
+          console.log(`${index + 1}. Tên: ${student.name}, Tuổi: ${student.age}, ID: ${student.id}`);
+        });
+      }
+    }
+
+    // 3. Xóa sinh viên theo ID
+    function deleteStudentById() {
+      let id = prompt("Nhập ID của sinh viên cần xóa:");
+      let index = students.findIndex((student) => student.id === id);
+
+      if (index !== -1) {
+        let removedStudent = students.splice(index, 1);
+        console.log(`Đã xóa sinh viên: Tên: ${removedStudent[0].name}, ID: ${id}`);
+      } else {
+        console.log(`Không tìm thấy sinh viên với ID: ${id}`);
+      }
+    }
+
+    // ==============================
+    // Menu chức năng
+    while (true) {
+      let choice = parseInt(prompt(
+        "Chọn một chức năng:\n" +
+        "1: Thêm sinh viên mới\n" +
+        "2: Hiển thị danh sách sinh viên\n" +
+        "3: Xóa sinh viên theo ID\n" +
+        "4: Thoát chương trình"
+      ));
+
+      switch (choice) {
+        case 1:
+          addStudent();
+          break;
+        case 2:
+          displayStudents();
+          break;
+        case 3:
+          deleteStudentById();
+          break;
+        case 4:
+          console.log("Thoát chương trình.");
+          alert("Thoát chương trình.");
+          exit();
+        default:
+          console.log("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+      }
+    }
+  </script>
+</body>
+</html>
